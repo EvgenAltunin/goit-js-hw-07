@@ -1,0 +1,32 @@
+{
+    "window.autoDetectColorScheme": false,
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorCustomizations": {
+    
+    },
+    "workbench.preferredDarkColorTheme": "Default Dark+",
+    "editor.fontSize": 14,
+    "editor.fontWeight": "bold", 
+
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/css"
+        },
+        {
+            "extensionName": ".min.css",
+            "format": "compressed",
+            "savePath": "/css"
+        }
+    ],
+    "liveSassCompile.settings.excludeList": [
+        "**/node_modules/**",
+        ".vscode/**"
+    ],
+    "liveSassCompile.settings.generateMap": true,
+    "liveSassCompile.settings.autoprefix": [
+        "defaults"
+    ],
+    "liveServer.settings.port": 5501
+}
