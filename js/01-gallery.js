@@ -1,21 +1,16 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-// console.log(galleryItems);
+const galleryContainer = document.querySelector('.gallery');
+const galleryItemsMurkup = createGalleryItemsMurkup(galleryItems);
 
-const galleryContainer = document.querySelector('.gallery')
-const galleryItemsMurkup = createGalleryItemsMurkup(galleryItems)
+galleryContainer.insertAdjacentHTML('beforeend', galleryItemsMurkup);
 
-galleryContainer.insertAdjacentHTML('beforeend', galleryItemsMurkup)
-
-galleryContainer.addEventListener('click', showModal)
-// window.addEventListener('keyup', closeModalonEscKeyPress);
-
-// console.log(createGalleryItemsMurkup(galleryItems))
+galleryContainer.addEventListener('click', showModal);
 
 function createGalleryItemsMurkup(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
-        return  `
+        return `
         <div class="gallery__item">
             <a class="gallery__link" href="${original}">
                 <img
@@ -28,7 +23,7 @@ function createGalleryItemsMurkup(galleryItems) {
         </div>
         `
     })
-    .join('')
+        .join('');
 
 }
 
@@ -38,20 +33,20 @@ function showModal(event) {
         return;
     }
 
-    event.preventDefault()
+    event.preventDefault();
 
-    const originalImgUrl = event.target.dataset.source
-    const imgDescription = event.target.alt
+    const originalImgUrl = event.target.dataset.source;
+    const imgDescription = event.target.alt;
 
     const instance = basicLightbox.create(`
     <img src="${originalImgUrl}" alt="${imgDescription}" width="800" height="600">
-`)
+`);
 
-    instance.show()
+    instance.show();
     
     const closeModalonEscKeyPress = (event) => {
         if (event.code === 'Escape') {
-            instance.close()
+            instance.close();
             window.removeEventListener('keyup', closeModalonEscKeyPress);
         }
     }
