@@ -8,7 +8,8 @@ const galleryItemsMurkup = createGalleryItemsMurkup(galleryItems)
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryItemsMurkup)
 
-galleryContainer.addEventListener('click', onGalleryContainerClick)
+galleryContainer.addEventListener('click', showModal)
+// window.addEventListener('keyup', closeModalonEscKeyPress);
 
 // console.log(createGalleryItemsMurkup(galleryItems))
 
@@ -31,8 +32,7 @@ function createGalleryItemsMurkup(galleryItems) {
 
 }
 
-function onGalleryContainerClick(event) {
-    // console.log(event.target.nodeName)
+function showModal(event) {
 
     if (event.target.nodeName !== 'IMG') {
         return;
@@ -40,7 +40,22 @@ function onGalleryContainerClick(event) {
 
     event.preventDefault()
 
-
     const originalImgUrl = event.target.dataset.source
-    console.log(originalImgUrl)
+    const imgDescription = event.target.alt
+
+    const instance = basicLightbox.create(`
+    <img src="${originalImgUrl}" alt="${imgDescription}" width="800" height="600">
+`)
+
+    instance.show()
+    
+    const closeModalonEscKeyPress = (event) => {
+        if (event.code === 'Escape') {
+            instance.close()
+            window.removeEventListener('keyup', closeModalonEscKeyPress);
+        }
+    }
+
+    window.addEventListener('keyup', closeModalonEscKeyPress);
 }
+
