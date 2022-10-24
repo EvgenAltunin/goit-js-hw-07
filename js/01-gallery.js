@@ -38,9 +38,11 @@ function showModal(event) {
     const originalImgUrl = event.target.dataset.source;
     const imgDescription = event.target.alt;
 
-    const instance = basicLightbox.create(`
-    <img src="${originalImgUrl}" alt="${imgDescription}" width="800" height="600">
-`);
+    const instance = basicLightbox.create(
+        `
+        <img src="${originalImgUrl}" alt="${imgDescription}" width="800" height="600">
+        `
+    );
 
     instance.show();
     
