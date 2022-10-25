@@ -6,7 +6,7 @@ const galleryItemsMurkup = createGalleryItemsMurkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryItemsMurkup);
 
-galleryContainer.addEventListener('click', showModal);
+galleryContainer.addEventListener('click', onGalleryImgClick);
 
 function createGalleryItemsMurkup(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
@@ -27,7 +27,7 @@ function createGalleryItemsMurkup(galleryItems) {
 
 }
 
-function showModal(event) {
+function onGalleryImgClick(event) {
 
     if (event.target.nodeName !== 'IMG') {
         return;
@@ -37,22 +37,21 @@ function showModal(event) {
 
     const originalImgUrl = event.target.dataset.source;
     const imgDescription = event.target.alt;
-
-    const instance = basicLightbox.create(
-        `
-        <img src="${originalImgUrl}" alt="${imgDescription}" width="800" height="600">
-        `
+    const html = `<img src="${originalImgUrl}" alt="${imgDescription}" width="800" height="600">`
+    
+    const instance = basicLightbox.create(html,
+        {
+            onShow: (instance) => document.addEventListener('keyup', closeModalonEscKeyPress),
+            onClose: (instance) => document.removeEventListener('keyup', closeModalonEscKeyPress) 
+        }
     );
 
     instance.show();
     
-    const closeModalonEscKeyPress = (event) => {
+    function closeModalonEscKeyPress(event) {
         if (event.code === 'Escape') {
             instance.close();
-            window.removeEventListener('keyup', closeModalonEscKeyPress);
-        }
+        }        
     }
-
-    window.addEventListener('keyup', closeModalonEscKeyPress);
 }
 
